@@ -2,6 +2,12 @@
   "name": "password-manager",
   "version": "0.0.1",
   "private": true,
+  "author": "Gegeh Prast",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gegehprast/password-manager-dashboard.git"
+  },
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
