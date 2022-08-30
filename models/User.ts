@@ -36,6 +36,6 @@ export const UserSchema: Schema = new Schema(
 
 UserSchema.index({ username: -1 }, { unique: true })
 
-const User = mongoose.model<IUserDoc>('User', UserSchema)
+const User = mongoose.models.User || mongoose.model<IUserDoc>('User', UserSchema)
 
 export default User
