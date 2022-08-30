@@ -1,5 +1,5 @@
 import dbConnect from '../lib/dbConnect'
-import { ApiMiddleware } from '../Type'
+import { ApiMiddleware } from '../types/Type'
 
 const withDB: ApiMiddleware = handler => async (req, res) => {
     await dbConnect()
