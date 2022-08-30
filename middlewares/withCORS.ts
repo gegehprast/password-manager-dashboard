@@ -1,11 +1,6 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+import { ApiMiddleware } from '../Type'
 
-export type ApiHandler = (
-    req: NextApiRequest,
-    res: NextApiResponse<any>
-) => Promise<void>
-
-const withCORS = (handler: ApiHandler) => async (req: NextApiRequest, res: NextApiResponse) => {
+const withCORS: ApiMiddleware = (handler) => async (req, res) => {
     res.setHeader('Access-Control-Allow-Credentials', 'true')
 
     if (req.headers.origin === 'http://localhost:3000') {
