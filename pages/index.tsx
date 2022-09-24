@@ -5,7 +5,7 @@ import Dashboard from '../views/Dashboard'
 import { Session, unstable_getServerSession } from 'next-auth'
 import { authOptions } from './api/auth/[...nextauth]'
 import { MyNextPage } from './_app'
-import MainLayout from '../components/layouts/MainLayout'
+import MainLayout from '../components/MainLayout'
 
 interface HomeProps {
     session: Session
