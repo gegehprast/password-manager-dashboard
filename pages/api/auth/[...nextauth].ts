@@ -1,10 +1,10 @@
-import NextAuth from 'next-auth'
+import NextAuth, { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import bcrypt from 'bcrypt'
 import User from '../../../models/User'
 import dbConnect from '../../../lib/dbConnect'
 
-export default NextAuth({
+export const authOptions: NextAuthOptions = {
     callbacks: {
         async signIn({ user, account, profile, email, credentials }) {
             return true
@@ -67,4 +67,6 @@ export default NextAuth({
             },
         }),
     ],
-})
+}
+
+export default NextAuth(authOptions)
