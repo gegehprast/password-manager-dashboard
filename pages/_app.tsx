@@ -1,9 +1,9 @@
 import type { AppProps } from 'next/app'
 import { NextPage } from 'next'
 import { SessionProvider } from 'next-auth/react'
-import '../styles/globals.css'
-import MainLayout from '../components/layouts/MainLayout'
+import MainLayout from '../components/MainLayout'
 import { ReactElement } from 'react'
+import '../styles/globals.css'
 
 export type MyNextPage<P = {}, IP = P> = NextPage<P, IP> & {
     getLayout?: (page: ReactElement<P>) => ReactElement
