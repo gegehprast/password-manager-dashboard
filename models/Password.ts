@@ -32,6 +32,7 @@ export const PasswordSchema: Schema = new Schema({
 })
 
 PasswordSchema.index({ site: 1 }, { unique: false })
+PasswordSchema.index({ site: 1, identifier: 1 }, { unique: true })
 
 const Password: mongoose.Model<IPasswordDoc, {}, {}, {}, any> =
     mongoose.models.Password ||
