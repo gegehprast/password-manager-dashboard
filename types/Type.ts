@@ -6,3 +6,8 @@ export type ApiHandler = (
 ) => Promise<void>
 
 export type ApiMiddleware = (handler: ApiHandler) => ApiHandler
+
+export type SuccessResponse<Data = any> = {
+    ok: boolean
+    data?: Data
+}
