@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import React, { useState } from 'react'
 import AddPasswordModal from '../components/AddPasswordModal'
 import { IPasswordDoc } from '../models/Password'
-import password, { getPasswords } from './api/password'
+import { getPasswords } from './api/password'
 import { MyNextPage } from './_app'
 
 interface Props {
@@ -10,7 +10,19 @@ interface Props {
 }
 
 const Password: MyNextPage<Props> = ({ passwords }) => {
+    const [passwordsState, setPasswordsState] = useState(passwords)
     const [showAddPasswordModal, setShowAddPasswordModal] = useState(false)
+
+    const closeAddPasswordModal = async (reFetch = false) => {
+        if (reFetch) {
+            const resp = await fetch(`/api/password`)
+            const jsonResp = await resp.clone().json()
+
+            setPasswordsState(jsonResp)
+        }
+
+        setShowAddPasswordModal(false)
+    }
 
     return (
         <div className="w-full">
@@ -43,7 +55,7 @@ const Password: MyNextPage<Props> = ({ passwords }) => {
                 </thead>
 
                 <tbody>
-                    {passwords.map(password => (
+                    {passwordsState.map(password => (
                         <tr key={password._id}>
                             <td className="border border-pink-500">
                                 <input
@@ -76,7 +88,7 @@ const Password: MyNextPage<Props> = ({ passwords }) => {
 
             <AddPasswordModal
                 show={showAddPasswordModal}
-                close={() => setShowAddPasswordModal(false)}
+                close={closeAddPasswordModal}
             />
         </div>
     )

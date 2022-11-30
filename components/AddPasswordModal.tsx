@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 interface Props {
     show: boolean
-    close: () => void
+    close: (reFetch?: boolean) => void
 }
 
 const AddPasswordModal: React.FC<Props> = ({ show, close }) => {
@@ -32,8 +32,8 @@ const AddPasswordModal: React.FC<Props> = ({ show, close }) => {
         const jsonResp = await resp.clone().json()
 
         setSubmitting(false)
-
-        console.log(jsonResp)
+        
+        close(true)
     }
 
     return (
@@ -81,7 +81,7 @@ const AddPasswordModal: React.FC<Props> = ({ show, close }) => {
                         <button
                             type="button"
                             className="px-2 py-1 text-white bg-gray-500 hover:bg-gray-600"
-                            onClick={close}
+                            onClick={() => close()}
                         >
                             Cancel
                         </button>
