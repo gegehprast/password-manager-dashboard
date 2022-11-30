@@ -33,7 +33,7 @@ const AddPasswordModal: React.FC<Props> = ({ show, close }) => {
 
         setSubmitting(false)
 
-        if (jsonResp.success) {
+        if (resp.ok) {
             close(true)
         } else {
             alert(jsonResp.message)

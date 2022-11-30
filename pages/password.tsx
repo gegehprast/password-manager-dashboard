@@ -18,7 +18,7 @@ const Password: MyNextPage<Props> = ({ passwords }) => {
             const resp = await fetch(`/api/password`)
             const jsonResp = await resp.clone().json()
 
-            if (jsonResp.success) {
+            if (resp.ok) {
                 setPasswordsState(jsonResp)
             } else {
                 alert(jsonResp.message)
