@@ -18,7 +18,11 @@ const Password: MyNextPage<Props> = ({ passwords }) => {
             const resp = await fetch(`/api/password`)
             const jsonResp = await resp.clone().json()
 
-            setPasswordsState(jsonResp)
+            if (jsonResp.success) {
+                setPasswordsState(jsonResp)
+            } else {
+                alert(jsonResp.message)
+            }
         }
 
         setShowAddPasswordModal(false)

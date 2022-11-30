@@ -32,8 +32,12 @@ const AddPasswordModal: React.FC<Props> = ({ show, close }) => {
         const jsonResp = await resp.clone().json()
 
         setSubmitting(false)
-        
-        close(true)
+
+        if (jsonResp.success) {
+            close(true)
+        } else {
+            alert(jsonResp.message)
+        }
     }
 
     return (
