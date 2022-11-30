@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
+import POST from '../../../middlewares/POST'
 import withCORS from '../../../middlewares/withCORS'
 import withDB from '../../../middlewares/withDB'
 import Password, { IPasswordDoc } from '../../../models/Password'
@@ -22,4 +23,4 @@ async function handler(
     res.json({ ok: true, data: password })
 }
 
-export default withCORS(withDB(handler))
+export default withCORS(POST(withDB(handler)))
