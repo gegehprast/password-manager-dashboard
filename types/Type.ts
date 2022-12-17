@@ -1,13 +1,20 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-export type ApiHandler = (
+export type SuccessResponse<Data = any> = {
+    ok: true
+    data?: Data
+}
+
+export type ErrorResponse = {
+    ok: false
+    message: string
+}
+
+export type ApiResponse<Data = any> = SuccessResponse<Data> | ErrorResponse
+
+export type ApiHandler<ResponseData = any> = (
     req: NextApiRequest,
-    res: NextApiResponse<any>
+    res: NextApiResponse<ApiResponse<ResponseData> | ResponseData>
 ) => Promise<void>
 
 export type ApiMiddleware = (handler: ApiHandler) => ApiHandler
-
-export type SuccessResponse<Data = any> = {
-    ok: boolean
-    data?: Data
-}

@@ -4,15 +4,22 @@ import GET from '../../../middlewares/GET'
 import withCORS from '../../../middlewares/withCORS'
 import withDB from '../../../middlewares/withDB'
 import Password, { IPasswordDoc } from '../../../models/Password'
+import { ApiHandler } from '../../../types/Type'
 
 export async function getPasswords() {
     return await Password.find().sort({ site: 1 }).exec()
 }
 
-async function handler(req: NextApiRequest, res: NextApiResponse<IPasswordDoc[]>) {
-    const passwords = await getPasswords()
+const handler: ApiHandler<IPasswordDoc[]> = async (req, res) => {
+    try {
+        const passwords = await getPasswords()
 
-    res.json(passwords)
+        return res.json(passwords)
+    } catch (error) {
+        return res
+            .status(500)
+            .json({ ok: false, message: 'Internal server error.' })
+    }
 }
 
 export default withCORS(GET(withDB(handler)))

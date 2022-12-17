@@ -5,24 +5,26 @@ import withCORS from '../../middlewares/withCORS'
 import withDB from '../../middlewares/withDB'
 import User, { IUserDoc } from '../../models/User'
 import POST from '../../middlewares/POST'
+import { ApiHandler } from '../../types/Type'
 
-type Data = {
-    ok: boolean
-    data: IUserDoc
-}
+const handler: ApiHandler<IUserDoc> = async (req, res) => {
+    try {
+        const password = await bcrypt.hash(req.query.password as string, 10)
+        const user = new User({
+            username: req.query.username,
+            password: password,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        })
 
-async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-    const password = await bcrypt.hash(req.query.password as string, 10)
-    const user = new User({
-        username: req.query.username,
-        password: password,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-    })
+        await user.save()
 
-    await user.save()
-
-    res.json({ ok: true, data: user })
+        return res.json({ ok: true, data: user })
+    } catch (error) {
+        return res
+            .status(500)
+            .json({ ok: false, message: 'Internal server error.' })
+    }
 }
 
 export default withCORS(POST(withDB(handler)))
